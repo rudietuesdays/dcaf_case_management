@@ -91,10 +91,10 @@ class PatientsControllerTest < ActionController::TestCase
       assert_response :success
     end
 
-    it 'should respond bad request on failure' do
+    it 'should respond internal server error on failure' do
       @payload[:primary_phone] = nil
       patch :update, id: @patient, patient: @payload
-      assert_response :bad_request
+      assert_response :internal_server_error
     end
 
     it 'should update pregnancy fields' do
