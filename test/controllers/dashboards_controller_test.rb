@@ -1,10 +1,10 @@
 require 'test_helper'
 
-class DashboardsControllerTest < ActionDispatch::IntegrationTest
+class DashboardsControllerTest < ActionController::TestCase
   before do
     @user = create :user
     sign_in @user
-    choose_line 'dc'
+    session[:line] = 'dc'
     @patient = create :patient,
                       name: 'Susie Everyteen',
                       primary_phone: '123-456-7890',
@@ -14,7 +14,7 @@ class DashboardsControllerTest < ActionDispatch::IntegrationTest
 
   describe 'index method' do
     before do
-      get dashboard_path
+      get :index
     end
 
     it 'should return success' do
@@ -25,7 +25,7 @@ class DashboardsControllerTest < ActionDispatch::IntegrationTest
   describe 'search method' do
     it 'should return on name, primary phone, and other phone' do
       ['Susie Everyteen', '123-456-7890', '333-444-5555'].each do |searcher|
-        post search_path, params: { search: searcher }, xhr: true
+        post :search, search: searcher, format: :js
         assert_response :success
       end
     end

@@ -1,6 +1,6 @@
 require 'test_helper'
 
-class ReportsControllerTest < ActionDispatch::IntegrationTest
+class ReportsControllerTest < ActionController::TestCase
   before do
     @user = create :user
     sign_in @user
@@ -13,7 +13,7 @@ class ReportsControllerTest < ActionDispatch::IntegrationTest
 
   describe 'index method' do
     before do
-      get report_path
+      get :index
     end
 
     it 'should return success' do

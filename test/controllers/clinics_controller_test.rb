@@ -1,6 +1,6 @@
 require 'test_helper'
 
-class ClinicsControllerTest < ActionDispatch::IntegrationTest
+class ClinicsControllerTest < ActionController::TestCase
   before do
     @user = create :user, role: :admin
     sign_in @user
@@ -8,15 +8,13 @@ class ClinicsControllerTest < ActionDispatch::IntegrationTest
 
   describe 'index' do
     it 'should redirect if not admin' do
-      User::ROLE.reject { |role| role == :admin }.each do |role|
-        @user.update role: role
-        get clinics_path
-        assert_response :redirect
-      end
+      @user.update role: :cm
+      get :index
+      assert_response :redirect
     end
 
     it 'should render if admin' do
-      get clinics_path
+      get :index
       assert_response :success
     end
   end
@@ -34,37 +32,23 @@ class ClinicsControllerTest < ActionDispatch::IntegrationTest
 
     it 'should create if fields are there' do
       assert_difference 'Clinic.count', 1 do
-        post clinics_path, params: { clinic: @new_clinic }
+        post :create, clinic: @new_clinic
       end
-      assert_response :redirect
-      # assert_redirected_to clinics_path
+      assert_redirected_to clinics_path
     end
 
     it 'should fail if fields not there' do
       @new_clinic[:street_address] = ''
       assert_no_difference 'Clinic.count' do
-        post clinics_path, params: { clinic: @new_clinic }
+        post :create, clinic: @new_clinic
       end
     end
   end
 
   describe 'new' do
     it 'should render' do
-      get new_clinic_path
+      get :new
       assert_response :success
     end
   end
-
-  describe 'edit' do
-    before { @clinic = create :clinic }
-
-    it 'should render' do
-      get edit_clinic_path(@clinic)
-      assert_response :success
-    end
-  end
-
-  # TODO
-  # describe 'update' do
-  # end
 end
