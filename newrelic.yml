@@ -1,6 +1,6 @@
 common: &default_settings
   license_key: <%= ENV['NEW_RELIC_LICENSE_KEY'] %>
-  app_name: DCAF Case Manager
+  app_name: <%= ENV['FUND'] %> Case Manager
   # agent_enabled: false
   log_level: info
 
