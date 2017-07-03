@@ -23,7 +23,7 @@ gem 'mongo_session_store', '>= 3.1.0'
 gem 'mongoid-enum', git: 'https://github.com/DCAFEngineering/mongoid-enum', branch: 'master'
 gem 'bson_ext'
 gem 'figaro'
-gem 'render_async', '~> 0.1.2'
+gem 'render_async', git: 'https://github.com/DCAFEngineering/render_async.git', branch: 'html_opts'
 gem 'gon', '~> 6.1.0'
 gem 'nokogiri', '>= 1.7.2'
 gem 'tzinfo-data', require: false
