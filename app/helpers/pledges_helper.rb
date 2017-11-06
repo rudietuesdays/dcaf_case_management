@@ -15,4 +15,12 @@ module PledgesHelper
       'Cancel pledge'
     end
   end
+
+  def delete_patient_button
+    content_tag :span, class: 'btn btn-primary btn-lg cancel-btn btn-block',
+                       aria: { hidden: true },
+                       id: 'delete-patient-button' do
+      'Delete patient'
+    end
+  end
 end

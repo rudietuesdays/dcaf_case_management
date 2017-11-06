@@ -89,6 +89,13 @@ class PatientsController < ApplicationController
     end
   end
 
+  # allow ONLY admins to delete patients, and only then if patient does not have pledge_sent
+  def destroy
+    if current_user.admin? && !@patient.pledge_sent?
+      current_user.remove_patient
+    end
+  end
+
   private
 
   def find_patient
