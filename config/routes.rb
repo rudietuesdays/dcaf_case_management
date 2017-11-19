@@ -50,7 +50,7 @@ Rails.application.routes.draw do
     resources :configs, only: [:index, :create, :update]
     resources :events, only: [:index]
 
-    delete 'patients/:patient_id/delete_patient' to: 'patients#destroy' as: 'delete_patient'
+    delete 'patients/:patient_id/delete_patient', to: 'patients#destroy', as: 'delete_patient'
   end
 
   # Auth routes

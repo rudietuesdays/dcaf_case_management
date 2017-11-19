@@ -91,8 +91,11 @@ class PatientsController < ApplicationController
 
   # allow ONLY admins to delete patients, and only then if patient does not have pledge_sent
   def destroy
+    @patient = Patient.find params[:patient_id]
     if current_user.admin? && !@patient.pledge_sent?
-      current_user.remove_patient
+      current_user.remove_patient(@patient)
+      redirect_to dashboard_path
+      flash[:notice] = "Patient successfully deleted"
     end
   end
 
